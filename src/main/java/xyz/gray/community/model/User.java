@@ -8,6 +8,9 @@ public class User {
     private String accountId;
     private String name;
     private String token;
+    private String bio;
+    private String email;
+    private String login;
     private Long gmtCreate;
     private Long gmtModified;
 
@@ -18,6 +21,9 @@ public class User {
                 ", accountId='" + accountId + '\'' +
                 ", name='" + name + '\'' +
                 ", token='" + token + '\'' +
+                ", bio='" + bio + '\'' +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
                 ", gmtCreate=" + gmtCreate +
                 ", gmtModified=" + gmtModified +
                 '}';
@@ -53,6 +59,30 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public Long getGmtCreate() {

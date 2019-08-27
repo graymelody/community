@@ -25,8 +25,11 @@ public interface QuestionMapper {
     int count();
 
     @Select("select * from question where creator = #{id} limit #{page}, #{size}")
-    List<Question> listByCreator(@Param("id") String id, @Param("page") int page, @Param("size") int size);
+    List<Question> listByCreator(@Param("id") Integer id, @Param("page") int page, @Param("size") int size);
 
     @Select("select count(1) from question where creator = #{id}")
-    int countByCreator(@Param("id") String id);
+    int countByCreator(@Param("id") Integer id);
+
+    @Select("select * from question where id = #{id}")
+    Question getById(int id);
 }

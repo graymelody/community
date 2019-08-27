@@ -31,3 +31,8 @@ body{
 .profile-list{
     margin-top: 15px;
 }
+
+.question-desc{
+    font-size: 12px;
+    color: #999;
+}

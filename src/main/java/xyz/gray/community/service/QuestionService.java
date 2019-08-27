@@ -40,7 +40,7 @@ public class QuestionService {
         List<Question> questions = questionMapper.list(start, size);
 
         for (Question question : questions) {
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.getById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
@@ -53,7 +53,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO<QuestionDTO> list(String id, int page, int size) {
+    public PaginationDTO<QuestionDTO> list(Integer id, int page, int size) {
         PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public class QuestionService {
         List<Question> questions = questionMapper.listByCreator(id, start, size);
 
         for (Question question : questions) {
-            User user = userMapper.findById(question.getCreator());
+            User user = userMapper.getById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
@@ -81,5 +81,13 @@ public class QuestionService {
         paginationDTO.setPagination(totalPage, page);
 
         return paginationDTO;
+    }
+
+    public QuestionDTO getById(int id) {
+        QuestionDTO questionDTO = new QuestionDTO();
+        Question question = questionMapper.getById(id);
+        BeanUtils.copyProperties(question,questionDTO);
+        questionDTO.setUser(userMapper.getById(question.getCreator()));
+        return questionDTO;
     }
 }

@@ -34,9 +34,9 @@ public class PaginationDTO<T> {
             }
         }
 
-        showPrevious = page != 1;
-        showNext = !page.equals(totalPage);
-        showFirstPage = !pages.contains(1);
-        showEndPage = !pages.contains(totalPage);
+        showPrevious = page > 1;
+        showNext = page < totalPage;
+        showFirstPage = !pages.contains(1)  && showPrevious;
+        showEndPage = !pages.contains(totalPage) && showNext;
     }
 }

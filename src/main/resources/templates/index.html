@@ -3,11 +3,11 @@
 <head>
     <title>G社区</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" href="css/community.css"/>
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/community.css"/>
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div th:replace="~{navigation :: nav}"></div>
@@ -23,12 +23,14 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.title}">Elastic&滴滴 meetup杭州站 2019年9月7日，抓紧报名哦</h4>
-                    <span class="desc-text"><span th:text="${question.commentCount}"></span> 个评论 • <span th:text="${question.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(question.gmtModified,'yyyy-MM-dd HH:mm')}"></span></span>
+                    <h4 class="media-heading">
+                        <a href="" th:href="@{'/question/' + ${question.id}}" th:text="${question.title}"></a>
+                    </h4>
+                    <span class="desc-text"><span th:text="${question.commentCount}"></span> 个评论 • <span th:text="${question.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
                 </div>
             </div>
             <!--分页按钮-->
-            <nav aria-label="Page navigation">
+            <nav aria-label="Page navigation" th:if="${pagination.totalPage > 0}">
                 <ul class="pagination">
                     <li th:if="${pagination.showFirstPage}">
                         <a href="/" th:href="@{/(page=${1})}" aria-label="First">

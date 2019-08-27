@@ -1,10 +1,10 @@
 body{
-    background-color: #e3e3e3;
+    background: url("/img/bg.jpg");
 }
 
 .main{
     background-color: #ffffff;
-    margin: 30px;
+    margin: 30px 100px;
 }
 
 .btn-publish{
@@ -21,4 +21,13 @@ body{
     font-size: 12px;
     font-weight: normal;
     color: #999;
+}
+
+.navbar-brand img{
+    width: 30px;
+    height: 30px;
+}
+
+.profile-list{
+    margin-top: 15px;
 }

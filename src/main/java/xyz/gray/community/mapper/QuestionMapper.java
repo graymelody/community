@@ -18,9 +18,15 @@ public interface QuestionMapper {
     @Insert("insert into question(title,description,creator,tag,gmt_create,gmt_modified) values(#{title},#{description},#{creator},#{tag},#{gmtCreate},#{gmtModified})")
     void insert(Question question);
 
-    @Select("select * from question limit #{page},#{size}")
+    @Select("select * from question limit #{page}, #{size}")
     List<Question> list(@Param("page") int page, @Param("size") int size);
 
     @Select("select count(1) from question")
     int count();
+
+    @Select("select * from question where creator = #{id} limit #{page}, #{size}")
+    List<Question> listByCreator(@Param("id") String id, @Param("page") int page, @Param("size") int size);
+
+    @Select("select count(1) from question where creator = #{id}")
+    int countByCreator(@Param("id") String id);
 }

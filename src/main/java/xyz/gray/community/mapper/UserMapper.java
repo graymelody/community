@@ -20,6 +20,6 @@ public interface UserMapper {
     @Select("select * from user where token = #{token}")
     User findByToken(@Param("token") String token);
 
-    @Select("select * from user where id = #{id}")
-    User findById(@Param("id") Integer id);
+    @Select("select * from user where account_id = #{id}")
+    User findById(@Param("id") String id);
 }

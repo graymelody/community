@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import xyz.gray.community.dto.PaginationDTO;
 import xyz.gray.community.dto.QuestionDTO;
 import xyz.gray.community.mapper.UserMapper;
 import xyz.gray.community.model.User;
@@ -26,7 +28,9 @@ public class IndexController {
     private QuestionService questionService;
 
     @RequestMapping("/")
-    public String index(HttpServletRequest request, Model model) {
+    public String index(HttpServletRequest request, Model model,
+                        @RequestParam(defaultValue = "1") int page,
+                        @RequestParam(defaultValue = "5") int size) {
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("token")) {
@@ -39,8 +43,8 @@ public class IndexController {
             }
         }
 
-        List<QuestionDTO> questions = questionService.list();
-        model.addAttribute("questions",questions);
+        PaginationDTO<QuestionDTO> pagination = questionService.list(page, size);
+        model.addAttribute("pagination",pagination);
 
         return "index";
     }

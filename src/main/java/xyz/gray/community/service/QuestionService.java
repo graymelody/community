@@ -3,6 +3,7 @@ package xyz.gray.community.service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import xyz.gray.community.dto.PaginationDTO;
 import xyz.gray.community.dto.QuestionDTO;
 import xyz.gray.community.mapper.QuestionMapper;
 import xyz.gray.community.mapper.UserMapper;
@@ -22,9 +23,22 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<QuestionDTO> list() {
+    public PaginationDTO<QuestionDTO> list(int page, int size) {
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
         List<QuestionDTO> questionDTOList = new ArrayList<>();
-        List<Question> questions = questionMapper.findAll();
+
+        int count = questionMapper.count();
+        int totalPage = count % size == 0 ? count / size : count / size + 1;
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > totalPage) {
+            page = totalPage;
+        }
+        int start = (page - 1) * size;
+
+        List<Question> questions = questionMapper.list(start, size);
+
         for (Question question : questions) {
             User user = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
@@ -32,6 +46,10 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        return questionDTOList;
+
+        paginationDTO.setData(questionDTOList);
+        paginationDTO.setPagination(totalPage, page);
+
+        return paginationDTO;
     }
 }

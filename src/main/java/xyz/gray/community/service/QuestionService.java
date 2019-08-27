@@ -90,4 +90,12 @@ public class QuestionService {
         questionDTO.setUser(userMapper.getById(question.getCreator()));
         return questionDTO;
     }
+
+    public void createOrUpdate(Question question) {
+        if (question.getId() != null) {
+            questionMapper.update(question);
+        }else {
+            questionMapper.insert(question);
+        }
+    }
 }

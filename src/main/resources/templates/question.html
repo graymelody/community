@@ -21,7 +21,9 @@
                 <p th:text="${question.description}"></p>
             </div>
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-            <a th:if="${session.user ne null and session.user.id eq question.creator}" class="question-desc" href=""><span class="glyphicon glyphicon-pencil"></span> 编辑</a>
+            <a th:if="${session.user ne null and session.user.id eq question.creator}" class="question-desc" th:href="@{'/publish/' + ${question.id}}" >
+                <span class="glyphicon glyphicon-pencil"></span> 编辑
+            </a>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <h3>发起人</h3>

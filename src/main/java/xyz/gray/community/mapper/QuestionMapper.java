@@ -1,9 +1,6 @@
 package xyz.gray.community.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import xyz.gray.community.model.Question;
 
@@ -32,4 +29,12 @@ public interface QuestionMapper {
 
     @Select("select * from question where id = #{id}")
     Question getById(int id);
+
+    @Update("update question set " +
+            "title = #{title}," +
+            "description = #{description}," +
+            "gmt_modified = #{gmtModified}," +
+            "tag = #{tag} " +
+            "where id = #{id}")
+    void update(Question question);
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.gray.community.dto.PaginationDTO;
 import xyz.gray.community.dto.QuestionDTO;
+import xyz.gray.community.exception.CustomizeErrorCodeImpl;
+import xyz.gray.community.exception.CustomizeException;
 import xyz.gray.community.mapper.QuestionMapper;
 import xyz.gray.community.mapper.UserMapper;
 import xyz.gray.community.model.Question;
@@ -18,6 +20,7 @@ import java.util.List;
 /**
  * Created by Gray on 2019-08-26 下午 06:27
  */
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Service
 public class QuestionService {
     @Autowired
@@ -93,6 +96,9 @@ public class QuestionService {
     public QuestionDTO getById(int id) {
         QuestionDTO questionDTO = new QuestionDTO();
         Question question = questionMapper.selectByPrimaryKey(id);
+        if (question == null) {
+            throw new CustomizeException(CustomizeErrorCodeImpl.QUESTIPN_NOT_FOUND);
+        }
         BeanUtils.copyProperties(question, questionDTO);
         questionDTO.setUser(userMapper.selectByPrimaryKey(question.getCreator()));
         return questionDTO;
@@ -101,7 +107,10 @@ public class QuestionService {
     public void createOrUpdate(Question question) {
         if (question.getId() != null) {
             question.setGmtCreate(null);
-            questionMapper.updateByPrimaryKeySelective(question);
+            int result = questionMapper.updateByPrimaryKeySelective(question);
+            if (result < 1) {
+                throw new CustomizeException(CustomizeErrorCodeImpl.QUESTION_UPDATE_FAILED);
+            }
         } else {
             questionMapper.insertSelective(question);
         }

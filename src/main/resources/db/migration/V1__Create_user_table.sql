@@ -9,5 +9,5 @@ CREATE TABLE user
     bio          VARCHAR(256),
     email        VARCHAR(50),
     login        VARCHAR(50),
-    avatarurl    VARCHAR(256)
+    avatar_url    VARCHAR(256)
 );

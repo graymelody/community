@@ -8,6 +8,7 @@ import xyz.gray.community.dto.PaginationDTO;
 import xyz.gray.community.dto.QuestionDTO;
 import xyz.gray.community.exception.CustomizeErrorCodeImpl;
 import xyz.gray.community.exception.CustomizeException;
+import xyz.gray.community.mapper.QuestionExtMapper;
 import xyz.gray.community.mapper.QuestionMapper;
 import xyz.gray.community.mapper.UserMapper;
 import xyz.gray.community.model.Question;
@@ -27,7 +28,15 @@ public class QuestionService {
     private QuestionMapper questionMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
+    /**
+     * 首页展示列表
+     * @param page 当前页
+     * @param size 每页显示的条目数
+     * @return 显示的列表数据
+     */
     public PaginationDTO<QuestionDTO> list(int page, int size) {
         PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
         List<QuestionDTO> questionDTOList = new ArrayList<>();
@@ -60,6 +69,13 @@ public class QuestionService {
         return paginationDTO;
     }
 
+    /**
+     * 我的提问展示列表
+     * @param id 账户的id
+     * @param page 当前页
+     * @param size 每页显示的条目数
+     * @return 列表显示的数据
+     */
     public PaginationDTO<QuestionDTO> list(Integer id, int page, int size) {
         PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
         List<QuestionDTO> questionDTOList = new ArrayList<>();
@@ -93,6 +109,11 @@ public class QuestionService {
         return paginationDTO;
     }
 
+    /**
+     * 提问详情页面
+     * @param id 提问的id
+     * @return 这条提问的数据
+     */
     public QuestionDTO getById(int id) {
         QuestionDTO questionDTO = new QuestionDTO();
         Question question = questionMapper.selectByPrimaryKey(id);
@@ -114,5 +135,16 @@ public class QuestionService {
         } else {
             questionMapper.insertSelective(question);
         }
+    }
+
+    /**
+     * 修改提问的阅读数
+     * @param id 这条提问的id
+     */
+    public void incView(int id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
     }
 }

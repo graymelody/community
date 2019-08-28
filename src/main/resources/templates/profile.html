@@ -16,10 +16,10 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-list"></span> <span th:text="${sectionName}"></span></h2>
             <hr>
-            <div class="media" th:each="question : ${pagination.data}">
+            <div class="media" th:if="${pagination ne null}" th:each="question : ${pagination.data}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object img-circle" th:src="${question.user.avatarUrl}" src="https://github.githubassets.com/favicon.ico" alt="...">
+                        <img class="media-object img-circle" th:src="${question.user.avatarurl}" src="https://github.githubassets.com/favicon.ico" alt="...">
                     </a>
                 </div>
                 <div class="media-body">
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <!--分页按钮-->
-            <nav aria-label="Page navigation">
+            <nav aria-label="Page navigation" th:if="${pagination.totalPage > 0}">
                 <ul class="pagination">
                     <li th:if="${pagination.showFirstPage}">
                         <a href="/" th:href="@{'/profile/'+${section}}" aria-label="First">

@@ -16,53 +16,64 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-list"></span> <span th:text="${sectionName}"></span></h2>
             <hr>
-            <div class="media" th:if="${pagination ne null}" th:each="question : ${pagination.data}">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object img-circle" th:src="${question.user.avatarUrl}" src="https://github.githubassets.com/favicon.ico" alt="...">
-                    </a>
+            <div th:if="${pagination ne null}">
+                <div class="media" th:each="question : ${pagination.data}">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-circle" th:src="${question.user.avatarUrl}"
+                                 src="https://github.githubassets.com/favicon.ico" alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading" th:text="${question.title}">Elastic&滴滴 meetup杭州站 2019年9月7日，抓紧报名哦</h4>
+                        <span class="desc-text"><span th:text="${question.commentCount}"></span> 个评论 • <span
+                                th:text="${question.viewCount}"></span> 次浏览 • <span
+                                th:text="${#dates.format(question.gmtModified,'yyyy-MM-dd HH:mm')}"></span></span>
+                    </div>
                 </div>
-                <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.title}">Elastic&滴滴 meetup杭州站 2019年9月7日，抓紧报名哦</h4>
-                    <span class="desc-text"><span th:text="${question.commentCount}"></span> 个评论 • <span th:text="${question.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(question.gmtModified,'yyyy-MM-dd HH:mm')}"></span></span>
-                </div>
+                <!--分页按钮-->
+                <nav aria-label="Page navigation" th:if="${pagination.totalPage > 0}">
+                    <ul class="pagination">
+                        <li th:if="${pagination.showFirstPage}">
+                            <a href="/" th:href="@{'/profile/'+${section}}" aria-label="First">
+                                <span aria-hidden="true">首页</span>
+                            </a>
+                        </li>
+                        <li th:if="${pagination.showPrevious}">
+                            <a href="#" th:href="@{'/profile/'+${section}(page=${pagination.page - 1})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">上一页</span>
+                            </a>
+                        </li>
+                        <li th:each="pageNum : ${pagination.pages}"
+                            th:class="${pageNum eq pagination.page} ? 'active' : '' ">
+                            <a href="#" th:href="@{'/profile/'+${section}(page=${pageNum})}" th:text="${pageNum}">1</a>
+                        </li>
+                        <li th:if="${pagination.showNext}">
+                            <a href="#" th:href="@{'/profile/'+${section}(page=${pagination.page + 1})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">下一页</span>
+                            </a>
+                        </li>
+                        <li th:if="${pagination.showEndPage}">
+                            <a href="#" th:href="@{'/profile/'+${section}(page=${pagination.totalPage})}"
+                               aria-label="End">
+                                <span aria-hidden="true">末页</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!--分页按钮-->
             </div>
-            <!--分页按钮-->
-            <nav aria-label="Page navigation" th:if="${pagination.totalPage > 0}">
-                <ul class="pagination">
-                    <li th:if="${pagination.showFirstPage}">
-                        <a href="/" th:href="@{'/profile/'+${section}}" aria-label="First">
-                            <span aria-hidden="true">首页</span>
-                        </a>
-                    </li>
-                    <li th:if="${pagination.showPrevious}">
-                        <a href="#" th:href="@{'/profile/'+${section}(page=${pagination.page - 1})}" aria-label="Previous">
-                            <span aria-hidden="true">上一页</span>
-                        </a>
-                    </li>
-                    <li th:each="pageNum : ${pagination.pages}" th:class="${pageNum eq pagination.page} ? 'active' : '' ">
-                        <a href="#" th:href="@{'/profile/'+${section}(page=${pageNum})}" th:text="${pageNum}">1</a>
-                    </li>
-                    <li th:if="${pagination.showNext}">
-                        <a href="#" th:href="@{'/profile/'+${section}(page=${pagination.page + 1})}" aria-label="Next">
-                            <span aria-hidden="true">下一页</span>
-                        </a>
-                    </li>
-                    <li th:if="${pagination.showEndPage}">
-                        <a href="#" th:href="@{'/profile/'+${section}(page=${pagination.totalPage})}" aria-label="End">
-                            <span aria-hidden="true">末页</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <!--分页按钮-->
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 profile-list">
             <div class="list-group">
-                <a href="/profile/questions" th:class="${section eq 'questions'} ? 'list-group-item active' : 'list-group-item' ">
+                <a href="/profile/questions"
+                   th:class="${section eq 'questions'} ? 'list-group-item active' : 'list-group-item' ">
                     我的提问
                 </a>
-                <a href="/profile/replies" th:class="${section eq 'replies'} ? 'list-group-item active' : 'list-group-item' ">
+                <a href="/profile/replies"
+                   th:class="${section eq 'replies'} ? 'list-group-item active' : 'list-group-item' ">
                     <span class="badge">14</span>
                     我的回复
                 </a>

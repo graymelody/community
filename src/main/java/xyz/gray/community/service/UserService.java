@@ -20,7 +20,7 @@ public class UserService {
         UserExample example = new UserExample();
         example.createCriteria().andAccountIdEqualTo(user.getAccountId());
         List<User> users = userMapper.selectByExample(example);
-        if (users != null) {
+        if (users != null && !users.isEmpty()) {
             user.setId(users.get(0).getId());
             user.setGmtCreate(null);
             userMapper.updateByPrimaryKeySelective(user);

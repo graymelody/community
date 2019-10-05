@@ -76,7 +76,7 @@ public class QuestionService {
      * @param size 每页显示的条目数
      * @return 列表显示的数据
      */
-    public PaginationDTO<QuestionDTO> list(Integer id, int page, int size) {
+    public PaginationDTO<QuestionDTO> list(Long id, int page, int size) {
         PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
@@ -114,7 +114,7 @@ public class QuestionService {
      * @param id 提问的id
      * @return 这条提问的数据
      */
-    public QuestionDTO getById(int id) {
+    public QuestionDTO getById(long id) {
         QuestionDTO questionDTO = new QuestionDTO();
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null) {
@@ -141,7 +141,7 @@ public class QuestionService {
      * 修改提问的阅读数
      * @param id 这条提问的id
      */
-    public void incView(int id) {
+    public void incView(long id) {
         Question question = new Question();
         question.setId(id);
         question.setViewCount(1);

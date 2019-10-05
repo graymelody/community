@@ -118,7 +118,7 @@ public class QuestionService {
         QuestionDTO questionDTO = new QuestionDTO();
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null) {
-            throw new CustomizeException(CustomizeErrorCodeImpl.QUESTIPN_NOT_FOUND);
+            throw new CustomizeException(CustomizeErrorCodeImpl.QUESTION_NOT_FOUND);
         }
         BeanUtils.copyProperties(question, questionDTO);
         questionDTO.setUser(userMapper.selectByPrimaryKey(question.getCreator()));
@@ -130,7 +130,7 @@ public class QuestionService {
             question.setGmtCreate(null);
             int result = questionMapper.updateByPrimaryKeySelective(question);
             if (result < 1) {
-                throw new CustomizeException(CustomizeErrorCodeImpl.QUESTION_UPDATE_FAILED);
+                throw new CustomizeException(CustomizeErrorCodeImpl.INVALID_OPERATION);
             }
         } else {
             questionMapper.insertSelective(question);

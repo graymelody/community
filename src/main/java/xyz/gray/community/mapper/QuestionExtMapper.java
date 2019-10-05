@@ -10,4 +10,7 @@ public interface QuestionExtMapper {
 
     @Update("update question set view_count = view_count + #{viewCount} where id = #{id}")
     int incView(Question question);
+
+    @Update("update question set comment_count = comment_count + #{commentCount} where id = #{id}")
+    int incCommentCount(Question question);
 }

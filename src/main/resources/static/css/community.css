@@ -41,17 +41,47 @@ body{
     font-size: 20px;
     color: #0f0f0f;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .comment-head-img{
-    margin-bottom: 10px;
+    margin-bottom: 0;
 }
 
 .comment-content-box{
-    margin: 10px 0;
+    margin-bottom: 10px;
 }
 
 .btn-comment-submit{
     margin-bottom: 15px;
     float: right;
+}
+
+.hr1{
+    margin-top: 5px;
+}
+
+.hr2{
+    margin-bottom: 5px;
+}
+
+.comments {
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.menu {
+    color: #999;
+    margin-top: 15px;
+}
+
+.menu .icon {
+    margin-right: 6px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.menu .icon:hover {
+    color: #499ef3;
 }

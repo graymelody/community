@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xyz.gray.community.dto.CommentDTO;
+import xyz.gray.community.dto.CommentCreateDTO;
 import xyz.gray.community.dto.ResultDTO;
 import xyz.gray.community.exception.CustomizeErrorCodeImpl;
 import xyz.gray.community.model.Comment;
@@ -26,7 +26,7 @@ public class CommentController {
 
     @PostMapping("comment")
     @ResponseBody
-    public Object post(@RequestBody CommentDTO commentDTO, HttpServletRequest request) {
+    public Object post(@RequestBody CommentCreateDTO commentCreateDTO, HttpServletRequest request) {
         //获取session中的用户信息
         User user = (User)request.getSession().getAttribute("user");
         //判断用户是否登录
@@ -35,17 +35,17 @@ public class CommentController {
         }
 
         //判断回复的内容
-        if (commentDTO == null || StringUtils.isBlank(commentDTO.getContent())) {
+        if (commentCreateDTO == null || StringUtils.isBlank(commentCreateDTO.getContent())) {
             return ResultDTO.errorOf(CustomizeErrorCodeImpl.CONTENT_IS_EMPTY);
         }
 
         //创建回复对象，存入数据库
         Comment comment = new Comment();
-        comment.setParentId(commentDTO.getParentId());
-        comment.setType(commentDTO.getType());
+        comment.setParentId(commentCreateDTO.getParentId());
+        comment.setType(commentCreateDTO.getType());
         comment.setLikeCount(0L);
         comment.setCommentator(user.getId());
-        comment.setContent(commentDTO.getContent());
+        comment.setContent(commentCreateDTO.getContent());
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setGmtModified(comment.getGmtCreate());
         commentService.insert(comment);

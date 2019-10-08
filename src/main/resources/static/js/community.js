@@ -12,11 +12,11 @@ function submitComment() {
         }),
         success:function (result) {
             if (result.code === 200) {
-                $(".comment").hide();
+                window.location.reload();
             } else if (result.code === 2003) {
                 var dowhat = confirm(result.message);
                 if (dowhat) {
-                    window.open("https://github.com/login/oauth/authorize?client_id=9aeb86d8b6e63deff761&redirect_uri=http://localhost:8080/callback&scope=user&state=1");
+                    window.open("https://github.com/login/oauth/authorize?client_id=9aeb86d8b6e63deff761&redirect_uri=http://localhost:8080/callback&scope=user&state=1https://github.com/login/oauth/authorize?client_id=9aeb86d8b6e63deff761&redirect_uri=http://localhost:8080/callback&scope=user&state=1");
                     window.localStorage.setItem("closable","true");
                 }
             } else {
@@ -25,4 +25,20 @@ function submitComment() {
         },
         dataType:"json"}
     );
+}
+
+function collapseComments(e) {
+    var id = $(e).data("id");
+    var $comments = $('#comment-' + id);
+    var collapse = $(e).data("collapse");
+    if (collapse) {
+        $comments.removeClass("in");
+        $(e).removeClass("active");
+        $(e).removeData("collapse");
+    } else {
+        $comments.addClass("in");
+        $(e).addClass("active");
+        $.data(e,"collapse",true);
+    }
+
 }

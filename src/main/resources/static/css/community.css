@@ -71,6 +71,18 @@ body{
     border-bottom: 1px solid #eee;
 }
 
+.sub-comments {
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    padding-top: 15px;
+    margin-bottom: 15px;
+}
+
+.sub-comments .btn {
+    margin: 10px 0;
+}
+
 .menu {
     color: #999;
     margin-top: 15px;
@@ -82,6 +94,23 @@ body{
     cursor: pointer;
 }
 
+.menu .active {
+    color: #499ef3;
+}
+
 .menu .icon:hover {
     color: #499ef3;
+}
+
+.question-tag{
+    font-size: 13px;
+    margin-right: 5px;
+}
+
+.relatedQuestion-ul{
+    line-height: 20px;
+    font-size: 12px;
+    margin-left: 0;
+    list-style: none;
+    padding-left: 0;
 }
